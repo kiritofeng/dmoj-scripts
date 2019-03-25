@@ -23,6 +23,14 @@ for contest in os.listdir(year):
 			if file.endswith('.zip'):
 				zipname = file
 				break
+		else:
+			files = os.listdir(path)
+			zipname = problem + '.zip'
+			zip = zipfile.ZipFile(os.path.join(path, zipname), 'w', zipfile.ZIP_DEFLATED)
+			for file in files:
+				zip.write(os.path.join(path, file), file)
+				os.remove(os.path.join(path, file))
+			zip.close()
 
 		zip = zipfile.ZipFile(os.path.join(path, zipname))
 		
